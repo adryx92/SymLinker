@@ -65,11 +65,9 @@ namespace SymLinker
                 };
 
                 Process process = Process.Start(psi);
-                process.WaitForExit(); // Attendere che il processo finisca
+                process.WaitForExit();
 
-                int exitCode = process.ExitCode; // Ottieni il codice di uscita del processo
-
-
+                int exitCode = process.ExitCode;
                 if (exitCode == 0)
                 {
                     System.Windows.MessageBox.Show("Symbolic link successfully created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
