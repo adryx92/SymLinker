@@ -1,0 +1,32 @@
+﻿<Window x:Class="SymLinker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SymLinker"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="SymLinker" Height="180" Width="480" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <TextBox Width="350" Name="TextBoxSrc" />
+            <Button Width="75" Margin="5,0,0,0" Content="Source" ToolTip="Select the source file or directory" Click="SourceSubmitButton_Click" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+            <TextBox Width="350" Name="TextBoxDest" />
+            <Button Width="75" Margin="5,0,0,0" Content="Destination" ToolTip="Select the destination of the link" Click="DestSubmitButton_Click" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <CheckBox  Content="Directory link" Name="DirectoryCheckBox" ToolTip="Creates a directory link instead of a file link" Checked="DirectoryCheckBox_Checked"/>
+            <Button Width="75" Margin="35,0,0,0" Content="Create link" ToolTip="Create the symbolic link" Click="CreateLink_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
