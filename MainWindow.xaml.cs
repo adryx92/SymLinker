@@ -137,10 +137,5 @@ namespace SymLinker
                 Properties.Settings.Default.Save();
             }
         }
-
-        private void DirectoryCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            TextBoxSrc.Text = string.Empty;
-        }
     }
 }
