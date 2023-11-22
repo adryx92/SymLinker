@@ -48,22 +48,23 @@ namespace SymLinker
 
             string destName = System.IO.Path.GetFileName(sourcePath);
 
+            string mkLinkCommand = "mklink";
+            if (isDirectoryLink)
+                mkLinkCommand += " /D";
+            mkLinkCommand += $" \"{destinationPath}\\{destName}\" \"{sourcePath}\"";
+
+            ProcessStartInfo psi = new("cmd.exe")
+            {
+                UseShellExecute = true,
+                CreateNoWindow = true,
+                RedirectStandardInput = false,
+                RedirectStandardOutput = false,
+                RedirectStandardError = false,
+                Arguments = $"/C {mkLinkCommand}"
+            };
+
             try
             {
-                string mkLinkCommand = "mklink";
-                if (isDirectoryLink)
-                    mkLinkCommand += " /D";
-                mkLinkCommand += $" \"{destinationPath}\\{destName}\" \"{sourcePath}\"";
-                ProcessStartInfo psi = new ProcessStartInfo("cmd.exe")
-                {
-                    UseShellExecute = true,
-                    CreateNoWindow = true,
-                    RedirectStandardInput = false,
-                    RedirectStandardOutput = false,
-                    RedirectStandardError = false,
-                    Arguments = $"/C {mkLinkCommand}"
-                };
-
                 Process process = Process.Start(psi);
                 process.WaitForExit();
 
