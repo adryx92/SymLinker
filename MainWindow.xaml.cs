@@ -15,10 +15,8 @@ using System.Windows.Shapes;
 
 
 using Microsoft.Win32;
-using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace SymLinker
@@ -37,6 +35,8 @@ namespace SymLinker
                 TextBoxSrc.Text = Properties.Settings.Default.LastSourcePath;
                 TextBoxDest.Text = Properties.Settings.Default.LastDestinationPath;
             }
+
+            DirectoryCheckBox.IsChecked = (Properties.Settings.Default.LastCheckStatusChecked == true);
         }
         private static void CreateSymbolicLink(string sourcePath, string destinationPath, bool isDirectoryLink)
         {
@@ -96,6 +96,8 @@ namespace SymLinker
         private static void OpenFileDlg(System.Windows.Controls.TextBox txtBoxElem)
         {
             var openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            if (!string.IsNullOrWhiteSpace(txtBoxElem.Text))
+                openFileDialog.InitialDirectory = txtBoxElem.Text;
             DialogResult result = openFileDialog.ShowDialog();
 
             if (result == System.Windows.Forms.DialogResult.OK)
@@ -106,7 +108,9 @@ namespace SymLinker
 
         private static void OpenDirectoryDlg(System.Windows.Controls.TextBox txtBoxElem)
         {
-            var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            var folderBrowserDialog = new FolderBrowserDialog();
+            if (!string.IsNullOrWhiteSpace(txtBoxElem.Text))
+                folderBrowserDialog.SelectedPath = txtBoxElem.Text;
             DialogResult result = folderBrowserDialog.ShowDialog();
 
             if (result == System.Windows.Forms.DialogResult.OK)
@@ -131,12 +135,10 @@ namespace SymLinker
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(TextBoxSrc.Text) && !string.IsNullOrWhiteSpace(TextBoxDest.Text))
-            {
-                Properties.Settings.Default.LastSourcePath = TextBoxSrc.Text;
-                Properties.Settings.Default.LastDestinationPath = TextBoxDest.Text;
-                Properties.Settings.Default.Save();
-            }
+            Properties.Settings.Default.LastSourcePath = TextBoxSrc.Text;
+            Properties.Settings.Default.LastDestinationPath = TextBoxDest.Text;
+            Properties.Settings.Default.LastCheckStatusChecked = (DirectoryCheckBox.IsChecked == true);
+            Properties.Settings.Default.Save();
         }
     }
 }

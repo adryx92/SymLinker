@@ -46,5 +46,17 @@ namespace SymLinker.Properties {
                 this["LastDestinationPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LastCheckStatusChecked {
+            get {
+                return ((bool)(this["LastCheckStatusChecked"]));
+            }
+            set {
+                this["LastCheckStatusChecked"] = value;
+            }
+        }
     }
 }
