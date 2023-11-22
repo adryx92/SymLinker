@@ -55,11 +55,11 @@ namespace SymLinker
 
             ProcessStartInfo psi = new("cmd.exe")
             {
-                UseShellExecute = true,
+                UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardInput = false,
                 RedirectStandardOutput = false,
-                RedirectStandardError = false,
+                RedirectStandardError = true,
                 Arguments = $"/C {mkLinkCommand}"
             };
 
@@ -75,7 +75,10 @@ namespace SymLinker
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Error creating the symbolic link.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string error = process.StandardError.ReadToEnd();
+                    string errorOutput = !string.IsNullOrEmpty(error) ? error : "Error creating the symbolic link";
+
+                    System.Windows.MessageBox.Show(errorOutput, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
