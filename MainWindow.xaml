@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SymLinker"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="SymLinker" Height="180" Width="480" ResizeMode="NoResize">
+        Title="SymLinker" Height="200" Width="480" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
